@@ -2,18 +2,20 @@ import { Component, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
-  selector: 'app-value',
-  templateUrl: './value.component.html',
-  styleUrls: ['./value.component.css']
+  selector: 'app-ListData',
+  templateUrl: './Lists.component.html',
+  styleUrls: ['./Lists.component.css']
 })
-export class ValueComponent implements OnInit {
+export class ListsComponent implements OnInit {
 
   values: any;
+  users: any;
 
   constructor(private http: HttpClient) { }
 
   ngOnInit() {
     this.getValues();
+    this.getUsers();
   }
 
   getValues() {
@@ -23,5 +25,15 @@ export class ValueComponent implements OnInit {
       console.log(error);
     });
   }
+
+  getUsers() {
+    this.http.get('http://localhost:5000/api/Users').subscribe(Response => {
+      this.users = Response;
+    }, error => {
+      console.log(error);
+    });
+  }
+
+
 
 }
