@@ -9,6 +9,7 @@ import { HttpClient } from '@angular/common/http';
 })
 export class HomeComponent implements OnInit {
   registerMode = false;
+  listMode = false;
   values: any;
   users: any;
 
@@ -21,8 +22,13 @@ export class HomeComponent implements OnInit {
 
   registerToggle() {
     this.registerMode = true;
+    this.listMode = false;
   }
 
+  listToggle() {
+    this.listMode = true;
+    this.registerMode = false;
+  }
 
   cancelRegisterMode(registerMode: boolean){
     this.registerMode = registerMode;
