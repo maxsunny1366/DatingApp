@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { AuthService } from '../_services/auth.service';
 import { error } from 'protractor';
 import { AlertifyService } from '../_services/alertify.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-nav',
@@ -15,7 +16,7 @@ export class NavComponent implements OnInit {
   loginModel: any = {};
   myCustomLoginText: string;
 
-  constructor(public authService: AuthService, private alertify: AlertifyService) {  }
+  constructor(public authService: AuthService, private alertify: AlertifyService, private router: Router) {  }
 
   ngOnInit() {
 
@@ -27,6 +28,8 @@ export class NavComponent implements OnInit {
     // tslint:disable-next-line: no-shadowed-variable
     }, error => {
       this.alertify.error('Invalid Login.');
+    }, () => {
+      this.router.navigate(['/members']);
     });
   }
 
@@ -36,7 +39,8 @@ export class NavComponent implements OnInit {
 
   logout() {
     localStorage.removeItem('token');
-    console.log('logged out');
+    this.alertify.message('logged out');
+    this.router.navigate(['/home']);
   }
 
 
